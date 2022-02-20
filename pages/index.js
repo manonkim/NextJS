@@ -22,12 +22,23 @@ export default function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     //페이지 주기적으로 업데이트 할 시간
+//     revalidate: 1,
+//   };
+// }
+
+export function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+  //fetch data from an API
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
-    //페이지 주기적으로 업데이트 할 시간
-    revalidate: 1,
   };
 }
