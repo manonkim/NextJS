@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -19,10 +18,16 @@ const DUMMY_MEETUPS = [
     description: "첫 meetup",
   },
 ];
-export default function HomePage() {
-  const [lodeMeetups, setLoadeMeetups] = useState([]);
-  useEffect(() => {
-    setLoadeMeetups(DUMMY_MEETUPS);
-  }, []);
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+export default function HomePage(props) {
+  return <MeetupList meetups={props.meetups} />;
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+    //페이지 주기적으로 업데이트 할 시간
+    revalidate: 1,
+  };
 }
